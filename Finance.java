@@ -16,10 +16,10 @@ class Finance  {
                 try {
                     name = ask_name();
                     // look if the name exists already in the list
-                    for (int counter = 0; counterr<persons.size(); counter++) {
-                        Person current_person = persons.get(person);
+                    for (int counter = 0; counter<persons.size(); counter++) {
+                        Person current_person = persons.get(counter);
                         if (name.equals(current_person.get_name())) {
-                            throw SamePersonException(20);
+                            throw new SamePersonException(20);
                         }
                     }
                     money = ask_money();
@@ -36,7 +36,7 @@ class Finance  {
         Compute.calculate_money(persons);
     }
 
-    public int ask_choice() {
+    public static int ask_choice() {
         int selection;
         boolean selection_ok = false;
         while (!selection_ok) {
@@ -45,21 +45,22 @@ class Finance  {
                 try {
                     selection = Integer.parseInt(System.console().readLine()); 
                     if (selection > 2 || selection < 1) {
-                        throw WrongInputException(13);
+                        throw new WrongInputException(13);
                     }
                     selection_ok = true;
                 }
                 catch (Exception temporary) {
-                    throw WrongInputException(10);
-            }
+                    throw new WrongInputException(10);
+                }
+            } 
             catch (WrongInputException exception) {
                 exception_handler(exception);
             }
         }
-        return selection;
+        return selection;       
     }
 
-    public String ask_name() {
+    public static String ask_name() {
         String name;
         System.out.println("[!] Adding a new person...");
         boolean done = false;
@@ -68,7 +69,7 @@ class Finance  {
                     System.out.print("Name: ");
                     name = System.console().readLine();
                     if (name.equals("")) {
-                        throw WrongInputException(12);
+                        throw new WrongInputException(12);
                     }
                     done = true;
                 }
@@ -79,7 +80,7 @@ class Finance  {
         return name;
     }
     
-    public float ask_money() {
+    public static float ask_money() {
         float money;
         boolean done = false;
         while (!done) {
@@ -90,8 +91,9 @@ class Finance  {
                     done = true; 
                 }
                 catch (Exception temporary) {
-                    throw WrongInputException(11);
+                    throw new WrongInputException(11);
                 }
+            }
             catch (FileException exception) {
                 exception_handler(exception);
             }
@@ -99,12 +101,12 @@ class Finance  {
         return money;
     }
 
-    public void exception_handler(FinanceException exception){
+    public static void exception_handler(FinanceException exception){
         String error_message = exception.soString();
         System.out.println("[!] " + error_message + ".");
     }        
         
-    public void print_header(){
+    public static void print_header(){
         System.out.println("");
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         System.out.println("-----------------Partage----------------");
@@ -112,7 +114,7 @@ class Finance  {
         System.out.println("");
     }
     
-    public void print_menu(){
+    public static void print_menu(){
         System.out.println("------------------Menu------------------");
         System.out.println("1: Add a new person");
         System.out.println("2: Calculate");

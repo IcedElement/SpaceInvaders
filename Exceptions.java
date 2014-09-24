@@ -23,13 +23,13 @@ class WrongInputException extends FinanceException {
                 error_message = "Please enter a number";
                 break;
             case 11 :
-                error_message = "Please enter a valid ammount"
+                error_message = "Please enter a valid ammount";
                 break;
             case 12 : 
-                error_message = "Please enter a name"
+                error_message = "Please enter a name";
                 break;
             case 13 :
-                error_message = "Please chooce between 1 and 2"
+                error_message = "Please chooce between 1 and 2";
                 break;
         }  
         return error_message;
@@ -46,4 +46,5 @@ class SamePersonException extends FinanceException {
                 break;
         }  
         return error_message;
+    }
 }
