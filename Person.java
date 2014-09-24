@@ -1,5 +1,5 @@
 class Person {
-    //Salut
+    
     float money_spent;
     float money_to_get = 0;
     float money_to_give = 0;
