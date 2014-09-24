@@ -45,9 +45,9 @@ class Finance  {
     
     public void print_menu(){
         System.out.println("------------------Menu------------------");
-        System.out.println("1: ajouter une personne");
-        System.out.println("2: stop");
-        System.out.print("Choix: ");
+        System.out.println("1: Add a new person");
+        System.out.println("2: calculate");
+        System.out.print("Choice: ");
     }
 
 }
