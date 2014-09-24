@@ -28,23 +28,13 @@ class Finance  {
         while (selection != 2);
         System.out.println("[...] Calculating");
         Compute.calculate_money(persons);
-<<<<<<< HEAD
     }
-
-=======
-        }
->>>>>>> origin/master
-
+    
     public void exception_handler(FinanceException exception){
         String error_message = exception.soString();
         System.out.println("[!] " + error_message + ".");
-<<<<<<< HEAD
     }        
-=======
-    }    
-        }    
->>>>>>> origin/master
-
+        
     public void print_header(){
         System.out.println("");
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
@@ -61,4 +51,3 @@ class Finance  {
     }
 
 }
-
