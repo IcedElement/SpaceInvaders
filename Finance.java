@@ -37,7 +37,7 @@ class Finance  {
     }
 
     public static int ask_choice() {
-        int selection;
+        int selection=0;
         boolean selection_ok = false;
         while (!selection_ok) {
             print_menu();
@@ -49,7 +49,7 @@ class Finance  {
                     }
                     selection_ok = true;
                 }
-                catch (Exception temporary) {
+                catch (IllegalArgumentException temporary) {
                     throw new WrongInputException(10);
                 }
             } 
@@ -61,7 +61,7 @@ class Finance  {
     }
 
     public static String ask_name() {
-        String name;
+        String name="";
         System.out.println("[!] Adding a new person...");
         boolean done = false;
             while (!done) {
@@ -81,7 +81,7 @@ class Finance  {
     }
     
     public static float ask_money() {
-        float money;
+        float money=0;
         boolean done = false;
         while (!done) {
             System.out.print("Money: ");
@@ -94,7 +94,7 @@ class Finance  {
                     throw new WrongInputException(11);
                 }
             }
-            catch (FileException exception) {
+            catch (FinanceException exception) {
                 exception_handler(exception);
             }
         }
@@ -102,7 +102,7 @@ class Finance  {
     }
 
     public static void exception_handler(FinanceException exception){
-        String error_message = exception.soString();
+        String error_message = exception.toString();
         System.out.println("[!] " + error_message + ".");
     }        
         

@@ -16,8 +16,12 @@ class FinanceException extends Exception {
 
 class WrongInputException extends FinanceException {
 
+    WrongInputException(int error_code){
+        super(error_code);
+    }
+
     public String toString() {
-        String error_message;
+        String error_message="";
         switch (error_code) {
             case 10 : 
                 error_message = "Please enter a number";
@@ -38,8 +42,12 @@ class WrongInputException extends FinanceException {
 
 class SamePersonException extends FinanceException {
 
+    SamePersonException (int error_code) {
+        super(error_code);
+    }
+
     public String toString() {
-        String error_message;
+        String error_message="";
         switch (error_code) {
             case 20 : 
                 error_message = "Warning: Person already added";
