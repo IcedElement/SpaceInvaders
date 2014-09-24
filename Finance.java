@@ -7,10 +7,7 @@ class Finance  {
 
         print_header();
         List<Person> persons = new ArrayList<Person>();
-        System.out.println("----------------");
-        System.out.println("Menu: ");
-        System.out.println("1: Add a person");
-        System.out.println("2: End");
+        print_menu();
         int selection;
         do {    
             System.out.print("[>] Choice: ");
@@ -31,13 +28,22 @@ class Finance  {
         while (selection != 2);
         System.out.println("[...] Calculating");
         Compute.calculate_money(persons);
+<<<<<<< HEAD
     }
 
+=======
+        }
+>>>>>>> origin/master
 
     public void exception_handler(FinanceException exception){
         String error_message = exception.soString();
         System.out.println("[!] " + error_message + ".");
+<<<<<<< HEAD
     }        
+=======
+    }    
+        }    
+>>>>>>> origin/master
 
     public void print_header(){
         System.out.println("");
@@ -45,15 +51,13 @@ class Finance  {
         System.out.println("-----------------Partage----------------");
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         System.out.println("");
-
+    }
+    
     public void print_menu(){
         System.out.println("------------------Menu------------------");
         System.out.println("1: ajouter une personne");
         System.out.println("2: stop");
         System.out.print("Choix: ");
-
-    }
-
     }
 
 }
