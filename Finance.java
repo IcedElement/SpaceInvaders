@@ -47,15 +47,13 @@ class Finance  {
         System.out.println("-----------------Partage----------------");
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         System.out.println("");
-
+    }
+    
     public void print_menu(){
         System.out.println("------------------Menu------------------");
         System.out.println("1: ajouter une personne");
         System.out.println("2: stop");
         System.out.print("Choix: ");
-
-    }
-
     }
 
 >>>>>>> origin/master
