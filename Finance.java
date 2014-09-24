@@ -30,5 +30,11 @@ class Finance  {
         while (selection != 2);
         System.out.println("[...] Calculating");
         Compute.calculate_money(persons);
-        }    
+        }
+
+    public void exception_handler(FinanceException exception){
+        String error_message = exception.soString();
+        System.out.println("[!] " + error_message + ".");
+    }    
 }
+
