@@ -28,6 +28,9 @@ class WrongInputException extends FinanceException {
             case 12 : 
                 error_message = "Please enter a name"
                 break;
+            case 13 :
+                error_message = "Please chooce between 1 and 2"
+                break;
         }  
         return error_message;
     }
