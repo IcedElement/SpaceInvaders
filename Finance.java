@@ -84,8 +84,7 @@ class Finance  {
         float money=0;
         boolean done = false;
         while (!done) {
-            System.out.println("Money: ");
-            //System.out.println("");
+            System.out.print("Money: ");
             try {
                 try {                   
                     money = Float.parseFloat(System.console().readLine());
