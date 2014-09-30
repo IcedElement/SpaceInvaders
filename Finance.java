@@ -32,7 +32,7 @@ class Finance  {
             }
         }
         while (selection != 2);
-        System.out.println("[...] Calculating");
+        //System.out.println("[...] Calculating");
         Compute.calculate_money(persons);
     }
 
@@ -84,7 +84,8 @@ class Finance  {
         float money=0;
         boolean done = false;
         while (!done) {
-            System.out.print("Money: ");
+            System.out.println("Money: ");
+            //System.out.println("");
             try {
                 try {                   
                     money = Float.parseFloat(System.console().readLine());
@@ -115,7 +116,7 @@ class Finance  {
     }
     
     public static void print_menu(){
-        System.out.println("------------------Menu------------------");
+        System.out.println("------------------Menu-----------------");
         System.out.println("1: Add a new person");
         System.out.println("2: Calculate");
         System.out.print("Choice: ");
