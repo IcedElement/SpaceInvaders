@@ -3,7 +3,7 @@
 // parent class for all our exceptions
 class FinanceException extends Exception {
 
-    private int error_code; 
+    protected int error_code; 
 
     // constructeur
     FinanceException(int error_code) {

@@ -3,7 +3,7 @@ import java.util.List;
 
 class Compute{
 
-	static float normalised_sum;
+	private static float normalised_sum;
 
 	public static void calculate_money(List<Person> persons){
 		float total_sum =0;
@@ -17,7 +17,7 @@ class Compute{
 		//System.out.println(moyenne);
 	} 
 
-	public static void update_persons(List<Person> persons){
+	private static void update_persons(List<Person> persons){
 		
 		List<Person> need_money = new ArrayList<Person>();
 		List<Person> owe_money = new ArrayList<Person>();
