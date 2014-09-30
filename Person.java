@@ -1,9 +1,9 @@
 class Person {
     
-    float money_spent;
-    float money_to_get = 0;
-    float money_to_give = 0;
-    String name;
+    private float money_spent;
+    private float money_to_get = 0;
+    private float money_to_give = 0;
+    private String name;
 
     Person(String name, float money_spent){
         this.name = name;

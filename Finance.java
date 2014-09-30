@@ -36,7 +36,7 @@ class Finance  {
         Compute.calculate_money(persons);
     }
 
-    public static int ask_choice() {
+    private static int ask_choice() {
         int selection=0;
         boolean selection_ok = false;
         while (!selection_ok) {
@@ -60,7 +60,7 @@ class Finance  {
         return selection;       
     }
 
-    public static String ask_name() {
+    private static String ask_name() {
         String name="";
         System.out.println("[!] Adding a new person...");
         boolean done = false;
@@ -80,7 +80,7 @@ class Finance  {
         return name;
     }
     
-    public static float ask_money() {
+    private static float ask_money() {
         float money=0;
         boolean done = false;
         while (!done) {
@@ -102,12 +102,12 @@ class Finance  {
         return money;
     }
 
-    public static void exception_handler(FinanceException exception){
+    private static void exception_handler(FinanceException exception){
         String error_message = exception.toString();
         System.out.println("[!] " + error_message + ".");
     }        
         
-    public static void print_header(){
+    private static void print_header(){
         System.out.println("");
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         System.out.println("-----------------Partage----------------");
@@ -115,7 +115,7 @@ class Finance  {
         System.out.println("");
     }
     
-    public static void print_menu(){
+    private static void print_menu(){
         System.out.println("------------------Menu-----------------");
         System.out.println("1: Add a new person");
         System.out.println("2: Calculate");
