@@ -88,33 +88,16 @@ public class FX extends Application {
 
         final Label result_header = new Label("Results");
         result_header.getStyleClass().add("result-header");
-        //result_header.setFont(new Font("Cambria" , 20));
-        
-        /*
-        final Label result_field = new Label("No data");
-        result_field.getStyleClass().add("result-field"); 
-        result_field.setWrapText(true);
-        result_field.setMinWidth(400);
-        result_field.setMinHeight(10000);
-        ScrollPane s1 = new ScrollPane();
-        s1.setPrefSize(120, 120);
-        s1.setPrefWidth(400);
-        s1.setPrefHeight(100);
-        s1.setContent(result_field);
-        s1.setHbarPolicy(ScrollBarPolicy.NEVER);
-        s1.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-    
-        /*
-        ScrollPane result_scroll = new ScrollPane();
-        result_scroll.setMinWidth(400);
-        result_scroll.setMinHeight(100);
-        result_scroll.setContent(result_field);
-        */
+        //result_header.setFont(new Font("Cambria" , 20))
 
+        // List View
         ListView<String> list = new ListView<>();
         ObservableList<String> items =FXCollections.observableArrayList(
          "No data");
         list.setItems(items);
+
+        list.setPrefWidth(50);
+        list.setPrefHeight(200);
 
         second_column.getChildren().addAll(result_header,list,chart);
 
