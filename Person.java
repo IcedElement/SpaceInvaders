@@ -31,6 +31,12 @@ public class Person {
         return name.get();
     }
 
+    public void set_money(float new_money_spent) {
+        money_spent = new_money_spent;
+        String money_show = Float.toString(money_spent);
+        this.money_show = new SimpleStringProperty(money_show);
+    }
+
     public void set_name(String new_name) {
         name.set(new_name); 
     }
