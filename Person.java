@@ -8,7 +8,7 @@ public class Person {
     private float money_to_get = 0;
     private float money_to_give = 0;
     private final SimpleStringProperty name;
-    private final SimpleStringProperty money_show;
+    private SimpleStringProperty money_show;
     
     Person(String name, float money_spent){
         this.name = new SimpleStringProperty(name);
