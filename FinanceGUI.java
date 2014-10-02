@@ -10,6 +10,8 @@
  *
  */
 
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.ScrollPane;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,6 +34,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.ListView;
+import java.util.List;
 
 
 public class FinanceGUI extends Application {
@@ -52,8 +58,7 @@ public class FinanceGUI extends Application {
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         person_data = FXCollections.observableArrayList();
         pie_chart_data = FXCollections.observableArrayList();
-        //person_data.add(new Person("Theo", 23.0f));
-        //person_data.add(new Person("Tristan", 24.0f));
+        pie_chart_data.add(new PieChart.Data("NULL",1));
     }
 
     // Override the start() method. We need to do this because start
@@ -84,22 +89,17 @@ public class FinanceGUI extends Application {
 
         final Label result_header = new Label("Results");
         result_header.getStyleClass().add("result-header");
-        //result_header.setFont(new Font("Cambria" , 20));
-        
-        final Label result_field = new Label("No data");
-        result_field.getStyleClass().add("result-field"); 
-        result_field.setWrapText(true);
-        result_field.setMinWidth(400);
-        result_field.setMinHeight(100);
 
-        /*
-        ScrollPane result_scroll = new ScrollPane();
-        result_scroll.setMinWidth(400);
-        result_scroll.setMinHeight(100);
-        result_scroll.setContent(result_field);
-        */
+        // List View
+        ListView<String> list = new ListView<>();
+        ObservableList<String> items =FXCollections.observableArrayList(
+         "No data");
+        list.setItems(items);
 
-        second_column.getChildren().addAll(result_header,result_field,chart);
+        list.setPrefWidth(50);
+        list.setPrefHeight(200);
+    
+        second_column.getChildren().addAll(result_header,list,chart);
 
         final Label table_label = new Label("People");
         table_label.setFont(new Font("Cambria", 20));
@@ -107,15 +107,47 @@ public class FinanceGUI extends Application {
  
         table.setEditable(true);
 
-        TableColumn name_column = new TableColumn("Name");
+        TableColumn<Person, String> name_column = new TableColumn<>("Name");
         name_column.setMinWidth(100);
         name_column.setCellValueFactory(
                     new PropertyValueFactory<Person,String>("name"));
 
-        TableColumn money_column = new TableColumn("Money");
+        name_column.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
+        name_column.setOnEditCommit(
+            (CellEditEvent<Person, String> t) -> {
+                ((Person) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                        ).set_name(t.getNewValue());
+                // updates stuff
+                update_pie_chart_list();
+                List<String> res = Compute.calculate_money(person_data);
+                items.clear();
+                for(int count=0;count<res.size();count++){
+                    items.add(res.get(count));
+                }
+        });
+
+        TableColumn<Person, String> money_column = new TableColumn("Money");
         money_column.setMinWidth(100);
         money_column.setCellValueFactory(
                     new PropertyValueFactory<Person,String>("money_show"));
+
+        money_column.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
+        money_column.setOnEditCommit(
+            (CellEditEvent<Person, String> t) -> {
+                ((Person) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                        ).set_money(Float.parseFloat(t.getNewValue()));
+                // updates stuff
+                update_pie_chart_list();
+                List<String> res = Compute.calculate_money(person_data);
+                items.clear();
+                for(int count=0;count<res.size();count++){
+                    items.add(res.get(count));
+                }
+                table.getColumns().clear();
+                table.getColumns().addAll(name_column, money_column); 
+        });
          
         table.setItems(person_data);
         table.getColumns().addAll(name_column, money_column); 
@@ -140,8 +172,12 @@ public class FinanceGUI extends Application {
                 Float.parseFloat(add_money.getText())));
             add_name.clear();
             add_money.clear();
-            String res = Compute.calculate_money(person_data);
-            result_field.setText(res);
+            update_pie_chart_list();
+            List<String> res = Compute.calculate_money(person_data);
+            items.clear();
+            for(int count=0;count<res.size();count++){
+                items.add(res.get(count));
+            }
         });  
 
         entry_panel.getChildren().addAll(add_name, add_money, add_button);
@@ -174,6 +210,15 @@ public class FinanceGUI extends Application {
         
         // Show the stage and its scene.
         finance_stage.show();
+    }
+
+    private void update_pie_chart_list () {
+        pie_chart_data.clear();
+        for (int counter = 0; counter < person_data.size(); counter++) {
+            Person current_person = person_data.get(counter);
+            pie_chart_data.add(new PieChart.Data(current_person.get_name(),
+                                current_person.get_money_spent()));
+        }
     }
     
     // Override the stop() method.
