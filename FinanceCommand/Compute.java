@@ -1,13 +1,11 @@
-import javafx.collections.ObservableList;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Compute{
+class Compute{
 
 	static float normalised_sum;
 
-	public static String calculate_money(ObservableList<Person> persons){
-		String result = "";
+	public static void calculate_money(List<Person> persons){
 		float total_sum =0;
 		for(int counter = 0; counter != persons.size(); counter++){
 			Person current_person = persons.get(counter);
@@ -15,14 +13,12 @@ public class Compute{
 		}
 		//System.out.println(total);
 		normalised_sum = total_sum /persons.size();
-		result = update_persons(persons);
-		return result;
+		update_persons(persons);
 		//System.out.println(moyenne);
 	} 
 
-	public static String update_persons(ObservableList<Person> persons){
+	public static void update_persons(List<Person> persons){
 		
-		String result="";
 		List<Person> need_money = new ArrayList<Person>();
 		List<Person> owe_money = new ArrayList<Person>();
 		for (int counter=0; counter < persons.size(); counter++){
@@ -41,7 +37,7 @@ public class Compute{
 		for (; counter_need != need_money.size() && counter_owe != owe_money.size(); ) {
 			Person current_needer = need_money.get(counter_need);
 			Person current_giver = owe_money.get(counter_owe);
-			result +=current_needer.exchange_money(current_giver);
+			current_needer.exchange_money(current_giver);
 			if (!current_needer.needs_money()) {
 				counter_need += 1;
 			}
@@ -50,9 +46,9 @@ public class Compute{
 			}
 		}
 		if (need_money.size() == 0) {
-			result = "All's good :P";
+			System.out.println("[+] All's good :P");
 		}
-		return result;
+
 	}
 
 }
