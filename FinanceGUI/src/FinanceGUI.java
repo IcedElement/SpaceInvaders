@@ -11,6 +11,7 @@ import javafx.scene.image.*;
 import javafx.scene.text.*;
 import javafx.event.*;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 public class FinanceGUI extends Application {
     
@@ -25,7 +26,7 @@ public class FinanceGUI extends Application {
     public void init() {
         System.out.println("Inside the init() method.");
     }
-
+    
     // Override the start() method. We need to do this because start
     // is defined abstract in the Application class.
     @Override
@@ -56,7 +57,8 @@ public class FinanceGUI extends Application {
         set_PieChart_GUI(pieChartData,"Jac",100);
         root_node.getChildren().add(chart);
         
-
+        s1.setHbarPolicy(ScrollBarPolicy.NEVER);
+        s1.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
 
         // Set the scene on the stage.

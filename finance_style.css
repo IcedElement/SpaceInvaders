@@ -4,7 +4,7 @@
     -fx-border-color: #0489B1;
     -fx-padding: 3 6 6 6;
     -fx-font-size: 11pt;
-    -fx-background-color: linear-gradient(#FFFFFF, #FFFFBA);
+    -fx-background-color: linear-gradient(#FFFFFF,#DF0101);
     /*-fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );*/
 }
 
