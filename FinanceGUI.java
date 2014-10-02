@@ -20,12 +20,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.chart.PieChart;
 
 
 public class FinanceGUI extends Application {
     
     private final TableView<Person> table = new TableView<>();
     public ObservableList<Person> person_data;
+    public ObservableList<PieChart.Data> pie_chart_data;
     final HBox entry_panel = new HBox();
 
     public static void main(String[] args) {
@@ -36,6 +38,7 @@ public class FinanceGUI extends Application {
     @Override
     public void init() {
         person_data = FXCollections.observableArrayList();
+        pie_chart_data = FXCollections.observableArrayList();
         //person_data.add(new Person("Theo", 23.0f));
         //person_data.add(new Person("Tristan", 24.0f));
     }
@@ -57,6 +60,12 @@ public class FinanceGUI extends Application {
         //GridPane.setRowIndex(button, 1);
         //GridPane.setColumnIndex(button, 2);
 
+        // PieChart
+
+        final PieChart chart = new PieChart(pie_chart_data);
+        chart.setTitle("Graphique");
+        chart.setLegendVisible(false);
+
         VBox second_column = new VBox();
         second_column.setPadding(new Insets(10, 50, 50, 50));
         second_column.setSpacing(10);
@@ -68,7 +77,7 @@ public class FinanceGUI extends Application {
         result_field.getStyleClass().add("result-field"); 
         result_field.setWrapText(true);
 
-        second_column.getChildren().addAll(result_header,result_field);
+        second_column.getChildren().addAll(result_header,result_field,chart);
 
         final Label table_label = new Label("People");
         table_label.setFont(new Font("Cambria", 20));
@@ -104,6 +113,8 @@ public class FinanceGUI extends Application {
                 add_name.getText(),
                 Float.parseFloat(add_money.getText())
             ));
+            pie_chart_data.add(new PieChart.Data(add_name.getText(),
+                Float.parseFloat(add_money.getText())));
             add_name.clear();
             add_money.clear();
             String res = Compute.calculate_money(person_data);
@@ -125,7 +136,7 @@ public class FinanceGUI extends Application {
 
         // Create a scene
         // Numbers represent window sizes
-        Scene finance_scene = new Scene(root_node, 500, 500);
+        Scene finance_scene = new Scene(root_node, 800, 800);
       
         // Set the scene on the stage.
 
