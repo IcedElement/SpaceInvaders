@@ -44,7 +44,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.KeyCombination;
 
-public class FX extends Application {
+public class FinanceGUI extends Application {
     
     private final TableView<Person> table = new TableView<>();
     private ObservableList<Person> person_data;
@@ -80,34 +80,7 @@ public class FX extends Application {
         GridPane root_node = new GridPane();
 
         //GridPane.setRowIndex(button, 1);
-        //GridPane.setColumnIndex(button, 2);
-
-        // --- Menu bar
-        MenuBar menuBar = new MenuBar();
- 
-        // --- Menu File
-        Menu menuFile = new Menu("File");
-        MenuItem reset = new MenuItem("reset all");
-            reset.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
-            reset.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent t){
-                    person_data.clear();
-                    pie_chart_data.clear();
-                    pie_chart_data.add(new PieChart.Data("NULL",1));
-                    items.clear();
-                }
-        });
-        menuFile.getItems().addAll(reset);
-            
-
-        // --- Menu about
-        Menu menuEdit = new Menu("About");
- 
-        // --- Menu Help
-        Menu menuView = new Menu("Help");
- 
-        menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
-        //menuBar.setUseSystemMenuBar(True);
+        //GridPane.setColumnIndex(button, 2)
 
 
         // PieChart
@@ -210,6 +183,56 @@ public class FX extends Application {
                 items.add(res.get(count));
             }
         });  
+
+        // --- Menu bar
+        MenuBar menuBar = new MenuBar();
+ 
+        // --- Menu File
+        Menu menuFile = new Menu("File");
+        MenuItem reset = new MenuItem("reset all");
+            reset.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
+            reset.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent t){
+                    person_data.clear();
+                    pie_chart_data.clear();
+                    pie_chart_data.add(new PieChart.Data("NULL",1));
+                    items.clear();
+                }
+            });
+        
+        MenuItem exit = new MenuItem("Exit");
+            exit.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent t) {
+                    System.exit(0);
+                }
+            });
+
+        MenuItem resetMoney = new MenuItem("Reset money");
+            resetMoney.setAccelerator(KeyCombination.keyCombination("Ctrl+T"));
+            resetMoney.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent t){
+                    for(int count=0;count<person_data.size();count++){
+                        person_data.get(count).set_money(0);
+                    }
+                    update_pie_chart_list();
+                    table.getColumns().clear();
+                    table.getColumns().addAll(name_column, money_column);
+                    items.clear();
+                    items.add("No data");
+                }
+            });
+
+        menuFile.getItems().addAll(reset,resetMoney,exit);
+            
+
+        // --- Menu about
+        Menu menuEdit = new Menu("About");
+ 
+        // --- Menu Help
+        Menu menuView = new Menu("Help");
+ 
+        menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
+        menuBar.setUseSystemMenuBar(true);
 
         entry_panel.getChildren().addAll(add_name, add_money, add_button);
         entry_panel.setSpacing(3);
