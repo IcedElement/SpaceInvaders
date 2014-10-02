@@ -50,7 +50,7 @@ public class Compute{
 			}
 		}
 		if (need_money.size() == 0) {
-			result = "All's good :P";
+			result = "All's good!";
 		}
 		return result;
 	}

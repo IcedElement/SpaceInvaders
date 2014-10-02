@@ -1,5 +1,16 @@
-// The base of the application
+/*
+ * Finance
+ * @authors:
+ * 
+ */
 
+/*
+ * CHANGELOG:
+ *
+ *
+ */
+
+import javafx.scene.control.ScrollPane;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,8 +37,8 @@ import javafx.scene.chart.PieChart;
 public class FinanceGUI extends Application {
     
     private final TableView<Person> table = new TableView<>();
-    public ObservableList<Person> person_data;
-    public ObservableList<PieChart.Data> pie_chart_data;
+    private ObservableList<Person> person_data;
+    private ObservableList<PieChart.Data> pie_chart_data;
     final HBox entry_panel = new HBox();
 
     public static void main(String[] args) {
@@ -37,6 +48,8 @@ public class FinanceGUI extends Application {
     
     @Override
     public void init() {
+        // Distrubute the space in the table equally between the two columns
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         person_data = FXCollections.observableArrayList();
         pie_chart_data = FXCollections.observableArrayList();
         //person_data.add(new Person("Theo", 23.0f));
@@ -53,8 +66,7 @@ public class FinanceGUI extends Application {
         // Give the stage a title.
         finance_stage.setTitle("Finance");
         
-        // Create a root node. In this case, a flow layout
-        // is used, but several alternatives exist.
+        // Create a root node. 
         GridPane root_node = new GridPane();
 
         //GridPane.setRowIndex(button, 1);
@@ -71,16 +83,27 @@ public class FinanceGUI extends Application {
         second_column.setSpacing(10);
 
         final Label result_header = new Label("Results");
-        result_header.setFont(new Font("Cambria" , 20));
+        result_header.getStyleClass().add("result-header");
+        //result_header.setFont(new Font("Cambria" , 20));
         
         final Label result_field = new Label("No data");
         result_field.getStyleClass().add("result-field"); 
         result_field.setWrapText(true);
+        result_field.setMinWidth(400);
+        result_field.setMinHeight(100);
+
+        /*
+        ScrollPane result_scroll = new ScrollPane();
+        result_scroll.setMinWidth(400);
+        result_scroll.setMinHeight(100);
+        result_scroll.setContent(result_field);
+        */
 
         second_column.getChildren().addAll(result_header,result_field,chart);
 
         final Label table_label = new Label("People");
         table_label.setFont(new Font("Cambria", 20));
+        table_label.getStyleClass().add("table-header");
  
         table.setEditable(true);
 
@@ -136,14 +159,14 @@ public class FinanceGUI extends Application {
 
         // Create a scene
         // Numbers represent window sizes
-        Scene finance_scene = new Scene(root_node, 800, 800);
+        Scene finance_scene = new Scene(root_node, 850, 500);
       
         // Set the scene on the stage.
 
         root_node.getChildren().addAll(first_column);
         root_node.getChildren().add(second_column);
         
-        //finance_scene.getStylesheets().add("finance_style.css"); 
+        finance_scene.getStylesheets().add("finance_style.css"); 
         finance_stage.setScene(finance_scene);  
 
         // EXAMPLE - DO NOT UNCOMMENT!!!

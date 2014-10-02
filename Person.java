@@ -82,7 +82,7 @@ public class Person {
             float available_money = other.get_money_to_give();
             if (available_money >= money_to_get) {
                 float rest = available_money - this.money_to_get;
-                result = "[+] " + other.get_name() + " must give " + money_to_get + 
+                result = other.get_name() + " must give " + money_to_get + 
                                                     " euros to " + this.get_name() + ".\n";
                 other.set_money_to_give(rest);
                 this.set_money_to_get(0);
@@ -90,7 +90,7 @@ public class Person {
             else {
                 other.set_money_to_give(0);
                 float rest = this.money_to_get - available_money;
-                result = "[+] " + other.get_name() + " must give " +
+                result = other.get_name() + " must give " +
                                  available_money + " euros to " + this.get_name() + ".\n" ;
                 this.set_money_to_get(rest);
             } 
