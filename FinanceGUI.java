@@ -29,6 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -38,13 +39,17 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.ListView;
 import java.util.List;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.MenuBar;
+import javafx.scene.input.KeyCombination;
 
-
-public class FinanceGUI extends Application {
+public class FX extends Application {
     
     private final TableView<Person> table = new TableView<>();
     private ObservableList<Person> person_data;
     private ObservableList<PieChart.Data> pie_chart_data;
+    private ObservableList<String> items =FXCollections.observableArrayList("No data");
     final HBox entry_panel = new HBox();
 
     public static void main(String[] args) {
@@ -77,6 +82,34 @@ public class FinanceGUI extends Application {
         //GridPane.setRowIndex(button, 1);
         //GridPane.setColumnIndex(button, 2);
 
+        // --- Menu bar
+        MenuBar menuBar = new MenuBar();
+ 
+        // --- Menu File
+        Menu menuFile = new Menu("File");
+        MenuItem reset = new MenuItem("reset all");
+            reset.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
+            reset.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent t){
+                    person_data.clear();
+                    pie_chart_data.clear();
+                    pie_chart_data.add(new PieChart.Data("NULL",1));
+                    items.clear();
+                }
+        });
+        menuFile.getItems().addAll(reset);
+            
+
+        // --- Menu about
+        Menu menuEdit = new Menu("About");
+ 
+        // --- Menu Help
+        Menu menuView = new Menu("Help");
+ 
+        menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
+        //menuBar.setUseSystemMenuBar(True);
+
+
         // PieChart
 
         final PieChart chart = new PieChart(pie_chart_data);
@@ -92,8 +125,6 @@ public class FinanceGUI extends Application {
 
         // List View
         ListView<String> list = new ListView<>();
-        ObservableList<String> items =FXCollections.observableArrayList(
-         "No data");
         list.setItems(items);
 
         list.setPrefWidth(50);
@@ -188,9 +219,12 @@ public class FinanceGUI extends Application {
         first_column.setPadding(new Insets(10, 0, 0, 10));
         first_column.getChildren().addAll(table_label, table,entry_panel);
 
-        GridPane.setRowIndex(first_column, 0);
+        GridPane.setColumnSpan(menuBar,2);
+        GridPane.setRowIndex(menuBar,0);
+        GridPane.setColumnIndex(menuBar,0);
+        GridPane.setRowIndex(first_column, 1);
         GridPane.setColumnIndex(first_column, 0);
-        GridPane.setRowIndex(second_column,0);
+        GridPane.setRowIndex(second_column,1);
         GridPane.setColumnIndex(second_column,1);
 
         // Create a scene
@@ -201,6 +235,7 @@ public class FinanceGUI extends Application {
 
         root_node.getChildren().addAll(first_column);
         root_node.getChildren().add(second_column);
+        root_node.getChildren().add( menuBar);
         
         finance_scene.getStylesheets().add("finance_style.css"); 
         finance_stage.setScene(finance_scene);  
@@ -227,23 +262,3 @@ public class FinanceGUI extends Application {
     }
 
 }
-
-// EXAMPLES
-
-    /*example
-    Button button2 = new Button("Accept");
-
-    button2.setOnAction(new EventHandler<ActionEvent>() {
-    public void handle(ActionEvent ae) {
-        String[] test  = {"ad","ad"};
-        Finance.main(test);
-        }
-    });
-    */
-
-    /* image and label examples
-    Image image = new Image(getClass().getResourceAsStream("tests.jpg"));
-    Label label3 = new Label("PARTAGE", new ImageView(image));
-    Label label3 = new Label("PARTAGE");
-    label3.setFont(Font.font("Cambria", 32));
-    */
