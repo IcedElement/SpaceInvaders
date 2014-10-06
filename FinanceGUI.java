@@ -1,6 +1,6 @@
 /*
  * Finance
- * @authors:
+ * @authors: 
  * 
  */
 
@@ -43,8 +43,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.KeyCombination;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
-public class FinanceGUI extends Application {
+public class FX extends Application {
     
     private final TableView<Person> table = new TableView<>();
     private ObservableList<Person> person_data;
@@ -168,20 +170,30 @@ public class FinanceGUI extends Application {
         // ATTENTION - NEEDS VERIFICATIONS!!!
         final Button add_button = new Button("Add");
         add_button.setOnAction((ActionEvent e) -> {
-            person_data.add(new Person(
-                add_name.getText(),
-                Float.parseFloat(add_money.getText())
-            ));
-            pie_chart_data.add(new PieChart.Data(add_name.getText(),
-                Float.parseFloat(add_money.getText())));
-            add_name.clear();
-            add_money.clear();
-            update_pie_chart_list();
-            List<String> res = Compute.calculate_money(person_data);
-            items.clear();
-            for(int count=0;count<res.size();count++){
-                items.add(res.get(count));
-            }
+            Float money;
+            try{
+                money = Float.parseFloat(add_money.getText());
+                if(add_name.getText().equals("")){
+                    ShowError(0);
+                }else{
+                    person_data.add(new Person(add_name.getText(), money));
+                    pie_chart_data.add(new PieChart.Data(add_name.getText(),
+                        Float.parseFloat(add_money.getText())));
+                    add_name.clear();
+                    add_money.clear();
+                    update_pie_chart_list();
+                    List<String> res = Compute.calculate_money(person_data);
+                    items.clear();
+                    for(int count=0;count<res.size();count++){
+                        items.add(res.get(count));
+                    } 
+                }    
+
+            }catch(NumberFormatException f){
+                add_money.clear();
+                ShowError(1);
+                money = 0f;
+            }     
         });  
 
         // --- Menu bar
@@ -277,6 +289,48 @@ public class FinanceGUI extends Application {
             pie_chart_data.add(new PieChart.Data(current_person.get_name(),
                                 current_person.get_money_spent()));
         }
+    }
+
+    private void ShowError(int number){
+        Stage dialogStage = new Stage();
+        GridPane root_dialogue = new GridPane();
+        root_dialogue.setAlignment(Pos.CENTER);
+        root_dialogue.setHgap(10);
+        root_dialogue.setVgap(10);//pading
+        Scene dialogScene = new Scene(root_dialogue,400,150);
+        Image image = new Image("fail.png");
+        ImageView image_error = new ImageView();
+        image_error.setImage(image);
+        final Button b_dialogue = new Button("Close");
+        b_dialogue.setOnAction((ActionEvent g) -> {
+            dialogStage.close();
+        });
+        String comment = "";
+        switch(number){
+            case 1:
+                comment = "Please enter a number ! ";
+                break;
+            case 0:
+                comment = "Please enter a name !";
+                break;
+            case 2:
+                comment = "No save file found !";
+                break;
+            case 3:
+                comment = "Could not save file !";
+                break;
+            case 4:
+                comment = "Could not load file !";
+                break;
+        }
+        Label l_dialogue = new Label(comment);
+        root_dialogue.add(image_error,0,0);
+        root_dialogue.add(l_dialogue,1,0);
+        root_dialogue.add(b_dialogue,1,1);
+
+        dialogStage.setTitle("Error");
+        dialogStage.setScene(dialogScene);
+        dialogStage.show();
     }
     
     // Override the stop() method.
